@@ -1,7 +1,7 @@
 package by.htp.predictor.entity;
 
-public class Answer {
-	
+public class Answer implements Comparable<Answer> {
+
 	private String answer;
 
 	public Answer() {
@@ -20,6 +20,15 @@ public class Answer {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Answer [" + answer + "]";
+	}
+
+	@Override
+	public int compareTo(Answer answer) {
+		return this.answer.compareTo(answer.answer);
+	}
+
 }

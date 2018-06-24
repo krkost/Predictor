@@ -29,7 +29,10 @@ public class PredictionResult {
 	public void setAnswer(Answer answer) {
 		this.answer = answer;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return " PredictionResult [" + prediction + ", " + answer + "]";
+	}
 
 }
