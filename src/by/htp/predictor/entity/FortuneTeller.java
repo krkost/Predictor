@@ -14,7 +14,7 @@ import java.util.Iterator;
 public class FortuneTeller implements Comparable<FortuneTeller> {
 
 	private LinkedHashMap<Prediction, Queue<Answer>> predictionMap;
-	private PriorityQueue<Client> waitingList;
+	private PriorityQueue<Client> clientsQueue;
 	private HashMap<Date, Client> history;
 	private int counter = 0;
 
@@ -22,10 +22,10 @@ public class FortuneTeller implements Comparable<FortuneTeller> {
 		super();
 	}
 
-	public FortuneTeller(LinkedHashMap<Prediction, Queue<Answer>> predictionMap, PriorityQueue<Client> waitingList) {
+	public FortuneTeller(LinkedHashMap<Prediction, Queue<Answer>> predictionMap, PriorityQueue<Client> clientsQueue) {
 		super();
 		this.predictionMap = predictionMap;
-		this.waitingList = waitingList;
+		this.clientsQueue = clientsQueue;
 		this.history = new HashMap<Date, Client>();
 	}
 
@@ -33,12 +33,12 @@ public class FortuneTeller implements Comparable<FortuneTeller> {
 		super();
 		this.predictionMap = predictionMap;
 		this.history = new HashMap<Date, Client>();
-		this.waitingList = new PriorityQueue<>();
+		this.clientsQueue = new PriorityQueue<>();
 		System.out.println("Input number of clients:");
 		int clients = new Scanner(System.in).nextInt();
 		for (int i = 0; i < clients; i++) {
 			Client c1 = Client.inputClient();
-			this.waitingList.add(c1);
+			this.clientsQueue.add(c1);
 		}
 
 	}
@@ -51,12 +51,12 @@ public class FortuneTeller implements Comparable<FortuneTeller> {
 		this.predictionMap = predictionMap;
 	}
 
-	public PriorityQueue<Client> getWaitingList() {
-		return waitingList;
+	public PriorityQueue<Client> getClientsQueue() {
+		return clientsQueue;
 	}
 
-	public void setWaitingList(PriorityQueue<Client> waitingList) {
-		this.waitingList = waitingList;
+	public void setWaitingList(PriorityQueue<Client> clientsQueue) {
+		this.clientsQueue = clientsQueue;
 	}
 
 	public HashMap<Date, Client> getHistory() {
@@ -66,7 +66,7 @@ public class FortuneTeller implements Comparable<FortuneTeller> {
 	public Set<Prediction> getPredictions() {
 		return this.predictionMap.keySet();
 	}
-
+	
 	public void showListOfPredictions() {
 		Set pr = getPredictions();
 		Iterator itr = pr.iterator();
@@ -91,11 +91,11 @@ public class FortuneTeller implements Comparable<FortuneTeller> {
 		}
 	}
 
-	public void givePredictionsForWaitingList() {
-		int size = waitingList.size();
+	public void givePredictionsForClientsQueue() {
+		int size = clientsQueue.size();
 		if (size != 0) {
 			PriorityQueue<Client> temp = new PriorityQueue<>();
-			temp.addAll(waitingList);
+			temp.addAll(clientsQueue);
 			for (int i = 0; i < size; i++) {
 				Client cl = new Client();
 				cl = temp.poll();
@@ -105,9 +105,9 @@ public class FortuneTeller implements Comparable<FortuneTeller> {
 	}
 
 	public void viewClientsList() {
-		int size = waitingList.size();
+		int size = clientsQueue.size();
 		PriorityQueue<Client> temp = new PriorityQueue<>();
-		temp.addAll(waitingList);
+		temp.addAll(clientsQueue);
 		if (size != 0) {
 			for (int i = 0; i < size; i++) {
 				Client cl = temp.poll();
@@ -120,12 +120,12 @@ public class FortuneTeller implements Comparable<FortuneTeller> {
 	}
 
 	public void deleteClientFromList(Client client) {
-		int size = waitingList.size();
+		int size = clientsQueue.size();
 		if (size != 0) {
 			for (int i = 0; i < size; i++) {
-				Client cl = waitingList.peek();
+				Client cl = clientsQueue.peek();
 				if (cl.equals(client)) {
-					waitingList.remove();
+					clientsQueue.remove();
 				}
 			}
 		} else {

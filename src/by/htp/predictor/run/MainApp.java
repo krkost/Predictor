@@ -33,8 +33,8 @@ public class MainApp {
 		FortuneTeller ft = new FortuneTeller(predictionMap);
 		ft.showListOfPredictions();
 		ft.viewClientsList();
-		ft.deleteClientFromList(Client.inputClient());
-		ft.givePredictionsForWaitingList();
+	//	ft.deleteClientFromList(Client.inputClient());
+		ft.givePredictionsForClientsQueue();
 		ft.viewHistoryOfClients();
 				
 	}
